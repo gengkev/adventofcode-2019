@@ -4,7 +4,10 @@ import re
 import sys
 from collections import Counter, defaultdict, deque
 from itertools import permutations, combinations, product
+import itertools
 import aocd
+
+flatten = itertools.chain.from_iterable
 
 
 is_sample = False
@@ -34,10 +37,7 @@ def main(A):
             frontier = set(orbits[obj])
             while frontier:
                 everyone |= frontier
-                next_frontier = []
-                for x in frontier:
-                    next_frontier += orbits[x]
-                frontier = set(next_frontier)
+                frontier = set(flatten(orbits[x] for x in frontier))
             cnt += len(everyone)
 
         return cnt
@@ -58,19 +58,15 @@ def main(A):
                     orbit_dists[obj][x] = iters
 
                 iters += 1
-
-                next_frontier = []
-                for x in frontier:
-                    next_frontier += orbits[x]
-                frontier = set(next_frontier)
+                frontier = set(flatten(orbits[x] for x in frontier))
 
         candidates = set(orbit_dists['YOU']) & set(orbit_dists['SAN'])
         best_answer = min(
             orbit_dists['YOU'][x] + orbit_dists['SAN'][x]
             for x in candidates)
 
-        print('YOU', orbit_dists['YOU'])
-        print('SAN', orbit_dists['SAN'])
+        #print('YOU', orbit_dists['YOU'])
+        #print('SAN', orbit_dists['SAN'])
 
         return best_answer
 

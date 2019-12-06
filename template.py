@@ -4,7 +4,10 @@ import re
 import sys
 from collections import Counter, defaultdict, deque
 from itertools import permutations, combinations, product
+import itertools
 import aocd
+
+flatten = itertools.chain.from_iterable
 
 
 is_sample = False
