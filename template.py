@@ -40,27 +40,24 @@ def parse_token(x):
 
 
 def parse_line(line):
-    # One token per line
-    line = parse_token(line)
-
-    # Multiple tokens per line
-    #line = line.split()
+    line = line.split()
     #line = re.findall(r'\d+', line)
     #line = re.findall(r'[-+]?\d+', line)
-    #line = [parse_token(x) for x in line]
+    line = [parse_token(x) for x in line]
+
+    # One token per line
+    line = line[0]
 
     return line
 
 
 def parse_input(A):
     A = A.strip()
+    A = A.splitlines()
+    A = [parse_line(line) for line in A]
 
     # One line per input
-    A = parse_line(A)
-
-    # Multiple lines per input
-    #A = A.splitlines()
-    #A = [parse_line(line) for line in A]
+    A = A[0]
 
     return A
 
