@@ -21,14 +21,14 @@ YEAR = 2019
 def main(A):
     # Solve part 1
     def part1():
-        return 0
+        pass
 
     res = part1()
     submit_1(res)
 
     # Solve part 2
     def part2():
-        return 0
+        pass
 
     res = part2()
     submit_2(res)
