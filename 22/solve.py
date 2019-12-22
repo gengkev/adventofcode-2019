@@ -31,6 +31,10 @@ def deck_deal_inc(deck, n):
     assert not any(x == -1 for x in out)
     return out
 
+
+def mat_identity(N):
+    return [[1 if i == j else 0 for j in range(N)] for i in range(N)]
+
 def mat_mult(A, B, mod=0):
     N = len(A)
     M = len(B[0])
@@ -41,15 +45,18 @@ def mat_mult(A, B, mod=0):
     C = [[0 for _ in range(M)] for _ in range(N)]
     for i in range(N):
         for j in range(M):
+            acc = 0
             for k in range(L):
-                C[i][j] += A[i][k] * B[k][j]
-                if mod != 0:
-                    C[i][j] %= mod
+                acc += A[i][k] * B[k][j]
+            if mod != 0:
+                acc %= mod
+            C[i][j] = acc
+
     return C
 
 # https://www.hackerearth.com/practice/notes/matrix-exponentiation-1/
 def mat_pow(A, exp, mod=0):
-    res = [[1,0],[0,1]]
+    res = mat_identity(2)
     while exp > 0:
         if exp % 2 == 1:
             res = mat_mult(res, A, mod)
